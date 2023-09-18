@@ -21,6 +21,11 @@ def get_database_session():
     finally:
         db.close()
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to API reporting!"}
+
+
 @app.get("/api/v1/reports/orders")
 async def reportOrders(
     db: Session = Depends(get_database_session), field: Union[str, None] = None, to: Union[str, None] = None, date_from: Union[str, None] = None
