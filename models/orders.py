@@ -1,0 +1,37 @@
+from config.db import Base
+from sqlalchemy import Table,Column
+from sqlalchemy.sql.sqltypes import Integer,String,Text, DateTime
+
+class Order(Base):
+    __tablename__ = "sx5p1B_order"
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer)
+    product_id = Column(Integer)
+    payment_method = Column(String)
+    payment_method_title=Column(String)
+    customer_ip_address=Column(String)
+    customer_user_agent=Column( String)
+    customer_note=Column(String)
+    created_via=Column(String)
+    billing_first_name= Column(String)
+    billing_last_name= Column(String)
+    billing_email= Column(String)
+    billing_phone= Column(String)
+    order_currency=Column(String)
+    code_coupon= Column(String)
+    coupon_price=Column(Integer)
+    tax_price=Column(Integer)
+    sale_price=Column(Integer)
+    reguler_price=Column(Integer)
+    diskon_price=Column(Integer)
+    coin_price=Column(Integer)
+    cashback=Column(Integer)
+    order_total=Column(Integer)
+    order_note=Column(String)
+    order_status=Column(String)
+    mt_payment_snap_token=Column(String)
+    mt_payment_url=Column(Text)
+    vibe_duration_isw=Column(Integer)
+    flag=Column(String)
+    created_at = Column(DateTime())
+    updated_at = Column(DateTime())
