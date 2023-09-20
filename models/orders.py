@@ -1,8 +1,8 @@
-from config.db import Base
+from models.BaseModel import EntityMeta
 from sqlalchemy import Table,Column
 from sqlalchemy.sql.sqltypes import Integer,String,Text, DateTime
 
-class Order(Base):
+class Order(EntityMeta):
     __tablename__ = "sx5p1B_order"
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer)
