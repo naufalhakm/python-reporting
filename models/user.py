@@ -1,8 +1,8 @@
-from config.db import Base
+from models.BaseModel import EntityMeta
 from sqlalchemy import Table,Column
 from sqlalchemy.sql.sqltypes import Integer,String,Text, DateTime
 
-class Users(Base):
+class Users(EntityMeta):
     __tablename__ = "sx5p1B_users"
     ID = Column(Integer, primary_key=True)
     user_login = Column(String)

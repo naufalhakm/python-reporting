@@ -1,8 +1,8 @@
-from config.db import Base
+from models.BaseModel import EntityMeta
 from sqlalchemy import Table,Column
 from sqlalchemy.sql.sqltypes import Integer,String,Text, DateTime
 
-class Post(Base):
+class Post(EntityMeta):
     __tablename__ = "sx5p1B_posts"
     ID = Column(Integer, primary_key=True)
     post_author = Column(Integer)
