@@ -5,6 +5,9 @@ from models.Orders import Order
 from models.Post import Post
 
 from repository.OrderRepository import OrderRepository
+from repository.JawabanRepository import JawabanRepository
+from repository.KuesionerRepository import KuesionerRepository
+from repository.UserRepository import UserRepository
 from repository.PostRepository import PostRepository
 from repository.PostMetaRepository import PostMetaRepository
 
@@ -18,12 +21,18 @@ class ReportService:
         orderRepository: OrderRepository = Depends(),
         postRepository: PostRepository = Depends(),
         postMetaRepository: PostMetaRepository = Depends(),
+        jawabanRepository: JawabanRepository = Depends(),
+        kuesionerRepository: KuesionerRepository = Depends(),
+        userRepository: UserRepository = Depends(),
     ) -> None:
         self.orderRepository = orderRepository
         self.postRepository = postRepository
         self.postMetaRepository = postMetaRepository
+        self.jawabanRepository = jawabanRepository
+        self.kuesionerRepository = kuesionerRepository
+        self.userRepository = userRepository
 
-    def report(self, field: str , date_from: str, to: str):
+    def reportOrder(self, field: str , date_from: str, to: str):
         if field == None:
             return None
         results = self.orderRepository.list(date_from, to)
@@ -86,4 +95,25 @@ class ReportService:
             else : 
                 break
         return data
-            
+    
+    def reportJRC(self, date_from: str, to: str):
+        if date_from == None or to == None:
+            return None
+        results = self.jawabanRepository.list(date_from, to)
+        data= []
+        for result in results:
+            result_kues = self.kuesionerRepository.getById(result.pertanyaan_id)
+            result_post = self.postRepository.getById(result.course_id)
+            result_user = self.userRepository.getById(result.user_id)
+            result_data = {
+                'id': result.id,
+                'course_id': result.course_id,
+                'user_id': result.user_id,
+                'display_name': result_user.display_name,
+                'post_title': result_post.post_title,
+                'type': result_kues.type,
+                'pertanyaan': result_kues.pertanyaan,
+                'jawaban': result.jawaban
+            }
+            data.append(result_data)
+        return data

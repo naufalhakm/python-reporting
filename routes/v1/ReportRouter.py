@@ -15,5 +15,12 @@ async def reportOrders(
     date_from: Union[str, None] = None,
     reportService: ReportService = Depends(),
 ):
-    return ReportService.report(reportService,field,date_from,to)
+    return ReportService.reportOrder(reportService,field,date_from,to)
 
+@ReportRouter.get("/courses/JRC")
+async def reportJRC(
+    to: Union[str, None] = None, 
+    date_from: Union[str, None] = None,
+    reportService: ReportService = Depends(),
+):
+    return ReportService.reportJRC(reportService,date_from,to)
